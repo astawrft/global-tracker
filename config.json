@@ -76,6 +76,17 @@
       "direction": "higher_better",
       "max_points": 5
     },
+
+    {
+      "key": "industrial_output_index",
+      "name": "Raw production power (index)",
+      "category": "Industry",
+      "weight": 1.4,
+      "mode": "rank",
+      "direction": "higher_better",
+      "max_points": 5
+    },
+
     {
       "key": "semiconductor_import_dependence",
       "name": "Chip import dependence (index)",
