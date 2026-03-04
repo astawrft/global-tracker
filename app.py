@@ -21,8 +21,6 @@ DATA_FOLDER = "data"
 # =========================
 # Admin / View-only (Option 2)
 # =========================
-# Streamlit Community Cloud -> password goes in Secrets:
-# ADMIN_PASSWORD="your_password"
 ADMIN_PASSWORD = st.secrets.get("ADMIN_PASSWORD", "")
 
 def check_admin(pw: str) -> bool:
@@ -32,7 +30,7 @@ if "is_admin" not in st.session_state:
     st.session_state.is_admin = False
 
 # =========================
-# Dramatic console (fake logs)
+# Processing log (REAL)
 # =========================
 if "console_lines" not in st.session_state:
     st.session_state.console_lines = []
@@ -40,14 +38,18 @@ if "console_lines" not in st.session_state:
 def console_log(msg: str):
     ts = datetime.now().strftime("%H:%M:%S")
     st.session_state.console_lines.append(f"[{ts}] {msg}")
-    # keep it short
-    st.session_state.console_lines = st.session_state.console_lines[-14:]
+    st.session_state.console_lines = st.session_state.console_lines[-20:]
+
+# Sidebar
+st.sidebar.header("🔐 Access")
+
+# Toggle log visibility
+show_log = st.sidebar.checkbox("Show processing log", value=True)
+log_box = st.sidebar.empty()
 
 def render_console():
-    with st.sidebar.expander("📟 Live console (dramatic)", expanded=True):
-        st.code("\n".join(st.session_state.console_lines) or "idle...", language="bash")
-
-st.sidebar.header("🔐 Access")
+    if show_log:
+        log_box.code("\n".join(st.session_state.console_lines) or "ready", language="text")
 
 if not ADMIN_PASSWORD:
     st.sidebar.info("Admin password is NOT set → app is view-only.")
@@ -59,19 +61,17 @@ else:
             st.session_state.is_admin = check_admin(pw)
             if st.session_state.is_admin:
                 st.sidebar.success("Edit mode enabled ✅")
-                console_log("admin auth: OK")
+                console_log("auth: admin login OK")
             else:
                 st.sidebar.error("Wrong password ❌")
-                console_log("admin auth: FAIL")
+                console_log("auth: admin login FAIL")
     with colB:
         if st.button("Logout"):
             st.session_state.is_admin = False
             st.sidebar.info("Logged out.")
-            console_log("admin auth: logout")
+            console_log("auth: logout")
 
 is_admin = st.session_state.is_admin
-
-render_console()
 
 # ---------- Load ----------
 def load_json_files(folder: str):
@@ -89,22 +89,25 @@ def save_json_file(folder: str, filename: str, data: dict):
     with open(path, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
 
-console_log("boot: starting app")
+console_log("boot: app started")
 
 if not os.path.exists(DATA_FOLDER):
     st.error("No `data/` folder found in your repo.")
     console_log("error: data folder missing")
+    render_console()
     st.stop()
 
 files_data = load_json_files(DATA_FOLDER)
 if not files_data:
     st.warning("No .json files found in `data/`.")
     console_log("warning: no json files")
+    render_console()
     st.stop()
 
 selected_file = st.selectbox("Choose a data file", list(files_data.keys()))
 raw = files_data[selected_file]
-console_log(f"load: {selected_file}")
+console_log(f"load: selected file = {selected_file}")
+console_log(f"data: countries loaded = {len(raw) if isinstance(raw, dict) else 'n/a'}")
 
 with st.expander("🔧 Debug: show raw JSON"):
     st.json(raw)
@@ -112,9 +115,9 @@ with st.expander("🔧 Debug: show raw JSON"):
 if not isinstance(raw, dict):
     st.error("This app expects a JSON dict like { 'USA': { ... }, 'EU': { ... } }")
     console_log("error: invalid json structure")
+    render_console()
     st.stop()
 
-# working copy (safe)
 working = deepcopy(raw)
 
 # =========================
@@ -149,8 +152,8 @@ if is_admin:
             try:
                 console_log("save: attempting write...")
                 save_json_file(DATA_FOLDER, selected_file, working)
-                st.success(f"Saved ✅ → {selected_file}")
                 console_log("save: OK")
+                st.success(f"Saved ✅ → {selected_file}")
                 st.rerun()
             except Exception as e:
                 st.error(f"Save failed: {e}")
@@ -246,7 +249,6 @@ else:
     if scale_to_100:
         df["Score"] = df["Score"] * 100
 
-# Ranking
 df_rank = df[["Country", "Score"]].copy()
 df_rank = df_rank.sort_values("Score", ascending=False, na_position="last").reset_index(drop=True)
 df_rank.insert(0, "Rank", range(1, len(df_rank) + 1))
@@ -260,12 +262,11 @@ col3.metric("Top score", float(df_rank.loc[0, "Score"]) if pd.notna(df_rank.loc[
 st.divider()
 
 # =========================
-# WORLD MAP (NEW)
+# WORLD MAP
 # =========================
 st.subheader("🗺️ World map (Influence Score)")
 console_log("viz: building world map")
 
-# Plotly needs ISO-3 codes for countries; EU isn't a country code for the map.
 iso3 = {
     "USA": "USA",
     "China": "CHN",
@@ -273,7 +274,6 @@ iso3 = {
     "Brazil": "BRA",
     "Russia": "RUS",
     "UAE": "ARE",
-    # "EU": (not plotted; shown separately)
 }
 
 map_rows = []
@@ -299,9 +299,6 @@ with side_col:
     else:
         st.caption("EU score not available.")
 
-    st.markdown("### 🎬 Dramatic mode")
-    st.caption("This console is fake on purpose — just for effect 😄")
-
 with map_col:
     if not PLOTLY_OK:
         st.warning("Plotly is not installed. Add `plotly` to requirements.txt to enable the world map.")
@@ -314,7 +311,6 @@ with map_col:
             color="Score",
             hover_name="Country",
             projection="natural earth",
-            color_continuous_scale="Viridis",
         )
         fig.update_layout(margin=dict(l=0, r=0, t=0, b=0))
         st.plotly_chart(fig, use_container_width=True)
