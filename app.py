@@ -104,7 +104,13 @@ if not files_data:
     render_console()
     st.stop()
 
-selected_file = st.selectbox("Choose a data file", list(files_data.keys()))
+files = list(files_data.keys())
+
+# make latest.json the default if it exists
+default_ix = files.index("latest.json") if "latest.json" in files else 0
+
+selected_file = st.selectbox("Choose a data file", files, index=default_ix)
+
 raw = files_data[selected_file]
 console_log(f"load: selected file = {selected_file}")
 console_log(f"data: countries loaded = {len(raw) if isinstance(raw, dict) else 'n/a'}")
