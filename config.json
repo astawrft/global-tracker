@@ -1,120 +1,348 @@
 {
+  "scoring": {
+    "mode": "max_norm",
+    "formula_higher_better": "value / max(country_values)",
+    "formula_lower_better": "1 - (value / max(country_values))",
+    "clamp_0_1": true,
+    "round_points_to": 2,
+    "missing_value_policy": "zero",
+    "notes": "For each metric: normalized ∈ [0,1]. points = normalized * max_points. weighted_points = points * weight."
+  },
+
+  "category_weights": {
+    "Economy": 0.30,
+    "Military": 0.25,
+    "Tech": 0.20,
+    "Energy": 0.10,
+    "Demographics": 0.10,
+    "Diplomacy": 0.05,
+    "Infrastructure": 0.00
+  },
+
   "metrics": [
     {
-      "key": "inflation_pct",
-      "name": "Inflation (%)",
+      "key": "gdp_nominal_usd_trillion",
+      "name": "GDP (nominal, USD tn)",
       "category": "Economy",
-      "weight": 1.2,
-      "mode": "threshold",
-      "direction": "lower_better",
-      "thresholds": [
-        { "max": 3, "points": 3 },
-        { "max": 6, "points": 2 },
-        { "max": 10, "points": 1 },
-        { "max": 999, "points": 0 }
-      ]
+      "weight": 1.6,
+      "mode": "max_norm",
+      "direction": "higher_better",
+      "max_points": 6
     },
     {
       "key": "gdp_growth_pct",
       "name": "GDP growth (%)",
       "category": "Economy",
-      "weight": 1.4,
-      "mode": "delta",
+      "weight": 1.1,
+      "mode": "max_norm",
       "direction": "higher_better",
-      "delta_step": 0.5,
-      "delta_points_per_step": 0.5,
-      "delta_cap": 3
+      "max_points": 4
+    },
+    {
+      "key": "gdp_per_capita_ppp",
+      "name": "GDP per capita (PPP)",
+      "category": "Economy",
+      "weight": 0.8,
+      "mode": "max_norm",
+      "direction": "higher_better",
+      "max_points": 4
+    },
+    {
+      "key": "inflation_pct",
+      "name": "Inflation (%)",
+      "category": "Economy",
+      "weight": 1.0,
+      "mode": "max_norm",
+      "direction": "lower_better",
+      "max_points": 4
+    },
+    {
+      "key": "industrial_output_index",
+      "name": "Industrial output index",
+      "category": "Economy",
+      "weight": 1.4,
+      "mode": "max_norm",
+      "direction": "higher_better",
+      "max_points": 5
+    },
+    {
+      "key": "manufacturing_gdp_pct",
+      "name": "Manufacturing share of GDP (%)",
+      "category": "Economy",
+      "weight": 0.9,
+      "mode": "max_norm",
+      "direction": "higher_better",
+      "max_points": 4
+    },
+    {
+      "key": "trade_volume_usd_trillion",
+      "name": "Trade volume (USD tn)",
+      "category": "Economy",
+      "weight": 1.0,
+      "mode": "max_norm",
+      "direction": "higher_better",
+      "max_points": 5
+    },
+    {
+      "key": "foreign_exchange_reserves_usd_bn",
+      "name": "FX reserves (USD bn)",
+      "category": "Economy",
+      "weight": 0.8,
+      "mode": "max_norm",
+      "direction": "higher_better",
+      "max_points": 4
+    },
+    {
+      "key": "debt_to_gdp_pct",
+      "name": "Debt to GDP (%)",
+      "category": "Economy",
+      "weight": 0.7,
+      "mode": "max_norm",
+      "direction": "lower_better",
+      "max_points": 4
+    },
+
+    {
+      "key": "population_total_million",
+      "name": "Population (million)",
+      "category": "Demographics",
+      "weight": 1.2,
+      "mode": "max_norm",
+      "direction": "higher_better",
+      "max_points": 5
+    },
+    {
+      "key": "working_age_population_pct",
+      "name": "Working-age population (%)",
+      "category": "Demographics",
+      "weight": 1.0,
+      "mode": "max_norm",
+      "direction": "higher_better",
+      "max_points": 4
+    },
+    {
+      "key": "median_age",
+      "name": "Median age",
+      "category": "Demographics",
+      "weight": 0.7,
+      "mode": "max_norm",
+      "direction": "lower_better",
+      "max_points": 3
+    },
+    {
+      "key": "population_growth_pct",
+      "name": "Population growth (%)",
+      "category": "Demographics",
+      "weight": 0.8,
+      "mode": "max_norm",
+      "direction": "higher_better",
+      "max_points": 3
+    },
+    {
+      "key": "urbanization_pct",
+      "name": "Urbanization (%)",
+      "category": "Demographics",
+      "weight": 0.6,
+      "mode": "max_norm",
+      "direction": "higher_better",
+      "max_points": 3
     },
 
     {
       "key": "defense_spend_usd_bn",
       "name": "Defense spending (USD bn)",
       "category": "Military",
-      "weight": 1.0,
-      "mode": "rank",
+      "weight": 1.4,
+      "mode": "max_norm",
       "direction": "higher_better",
       "max_points": 6
+    },
+    {
+      "key": "active_military_personnel",
+      "name": "Active military personnel",
+      "category": "Military",
+      "weight": 0.9,
+      "mode": "max_norm",
+      "direction": "higher_better",
+      "max_points": 4
     },
     {
       "key": "overseas_bases_count",
       "name": "Overseas bases (count)",
       "category": "Military",
+      "weight": 1.0,
+      "mode": "max_norm",
+      "direction": "higher_better",
+      "max_points": 5
+    },
+    {
+      "key": "aircraft_carriers",
+      "name": "Aircraft carriers (count)",
+      "category": "Military",
       "weight": 0.8,
-      "mode": "rank",
+      "mode": "max_norm",
       "direction": "higher_better",
       "max_points": 4
     },
-
     {
-      "key": "energy_net_exporter",
-      "name": "Net energy exporter (1=yes,0=no)",
-      "category": "Energy",
-      "weight": 0.9,
-      "mode": "threshold",
+      "key": "nuclear_warheads",
+      "name": "Nuclear warheads (est.)",
+      "category": "Military",
+      "weight": 1.1,
+      "mode": "max_norm",
       "direction": "higher_better",
-      "thresholds": [
-        { "max": 0, "points": 0 },
-        { "max": 1, "points": 3 }
-      ]
+      "max_points": 5
     },
     {
-      "key": "oil_production_mbd",
-      "name": "Oil production (mb/d)",
-      "category": "Energy",
-      "weight": 0.7,
-      "mode": "rank",
+      "key": "advanced_military_tech_index",
+      "name": "Advanced military tech index (0–1)",
+      "category": "Military",
+      "weight": 1.0,
+      "mode": "max_norm",
       "direction": "higher_better",
-      "max_points": 4
+      "max_points": 5
     },
 
     {
       "key": "rd_gdp_pct",
-      "name": "R&D (% of GDP)",
+      "name": "R&D spending (% of GDP)",
+      "category": "Tech",
+      "weight": 1.3,
+      "mode": "max_norm",
+      "direction": "higher_better",
+      "max_points": 5
+    },
+    {
+      "key": "patents_per_year",
+      "name": "Patents per year",
       "category": "Tech",
       "weight": 1.0,
-      "mode": "rank",
+      "mode": "max_norm",
       "direction": "higher_better",
       "max_points": 5
     },
-
     {
-      "key": "industrial_output_index",
-      "name": "Raw production power (index)",
-      "category": "Industry",
-      "weight": 1.4,
-      "mode": "rank",
-      "direction": "higher_better",
-      "max_points": 5
-    },
-
-    {
-      "key": "semiconductor_import_dependence",
-      "name": "Chip import dependence (index)",
+      "key": "high_tech_exports_pct",
+      "name": "High-tech exports (%)",
       "category": "Tech",
+      "weight": 0.9,
+      "mode": "max_norm",
+      "direction": "higher_better",
+      "max_points": 4
+    },
+    {
+      "key": "semiconductor_production_share",
+      "name": "Semiconductor production share",
+      "category": "Tech",
+      "weight": 1.1,
+      "mode": "max_norm",
+      "direction": "higher_better",
+      "max_points": 5
+    },
+    {
+      "key": "ai_research_output_index",
+      "name": "AI research output index (0–1)",
+      "category": "Tech",
+      "weight": 0.9,
+      "mode": "max_norm",
+      "direction": "higher_better",
+      "max_points": 4
+    },
+
+    {
+      "key": "oil_production_mbd",
+      "name": "Oil production (mb/d)",
+      "category": "Energy",
+      "weight": 1.0,
+      "mode": "max_norm",
+      "direction": "higher_better",
+      "max_points": 5
+    },
+    {
+      "key": "gas_production_bcm",
+      "name": "Gas production (bcm)",
+      "category": "Energy",
+      "weight": 0.9,
+      "mode": "max_norm",
+      "direction": "higher_better",
+      "max_points": 4
+    },
+    {
+      "key": "energy_net_exporter",
+      "name": "Net energy exporter (1=yes,0=no)",
+      "category": "Energy",
       "weight": 0.8,
       "mode": "threshold",
-      "direction": "lower_better",
+      "direction": "higher_better",
       "thresholds": [
-        { "max": 0.3, "points": 3 },
-        { "max": 0.6, "points": 2 },
-        { "max": 0.9, "points": 1 },
-        { "max": 999, "points": 0 }
+        { "max": 0, "points": 0 },
+        { "max": 1, "points": 4 }
       ]
+    },
+    {
+      "key": "renewable_capacity_gw",
+      "name": "Renewable capacity (GW)",
+      "category": "Energy",
+      "weight": 0.7,
+      "mode": "max_norm",
+      "direction": "higher_better",
+      "max_points": 4
+    },
+    {
+      "key": "critical_minerals_index",
+      "name": "Critical minerals index (0–1)",
+      "category": "Energy",
+      "weight": 0.7,
+      "mode": "max_norm",
+      "direction": "higher_better",
+      "max_points": 4
     },
 
     {
+      "key": "diplomatic_missions_abroad",
+      "name": "Diplomatic missions abroad (count)",
+      "category": "Diplomacy",
+      "weight": 1.0,
+      "mode": "max_norm",
+      "direction": "higher_better",
+      "max_points": 5
+    },
+    {
+      "key": "foreign_aid_usd_bn",
+      "name": "Foreign aid (USD bn)",
+      "category": "Diplomacy",
+      "weight": 0.8,
+      "mode": "max_norm",
+      "direction": "higher_better",
+      "max_points": 4
+    },
+    {
       "key": "sanctions_intensity_index",
-      "name": "Sanctions pressure (index)",
+      "name": "Sanctions pressure index (0–1)",
       "category": "Diplomacy",
       "weight": 0.9,
-      "mode": "threshold",
+      "mode": "max_norm",
       "direction": "lower_better",
-      "thresholds": [
-        { "max": 0.2, "points": 3 },
-        { "max": 0.5, "points": 2 },
-        { "max": 0.8, "points": 1 },
-        { "max": 999, "points": 0 }
-      ]
+      "max_points": 4
+    },
+    {
+      "key": "global_cultural_influence_index",
+      "name": "Global cultural influence index (0–1)",
+      "category": "Diplomacy",
+      "weight": 0.7,
+      "mode": "max_norm",
+      "direction": "higher_better",
+      "max_points": 4
+    },
+
+    {
+      "key": "port_throughput_index",
+      "name": "Port throughput / logistics index (0–1)",
+      "category": "Infrastructure",
+      "weight": 0.6,
+      "mode": "max_norm",
+      "direction": "higher_better",
+      "max_points": 4
     }
   ]
 }
