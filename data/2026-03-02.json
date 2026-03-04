@@ -1,92 +1,309 @@
 {
-"USA": {
-"inflation_pct": 3.1,
-"gdp_growth_pct": 2.4,
-"defense_spend_usd_bn": 886,
-"overseas_bases_count": 750,
-"energy_net_exporter": 1,
-"oil_production_mbd": 13.3,
-"rd_gdp_pct": 3.6,
-"semiconductor_import_dependence": 0.35,
-"sanctions_intensity_index": 0.15,
-"industrial_output_index": 102
-},
+  "USA": {
+    "gdp_nominal_usd_trillion": 27.0,
+    "gdp_growth_pct": 2.1,
+    "gdp_per_capita_ppp": 80000,
+    "inflation_pct": 3.2,
+    "industrial_output_index": 102,
+    "manufacturing_gdp_pct": 11,
+    "trade_volume_usd_trillion": 5.2,
+    "foreign_exchange_reserves_usd_bn": 240,
+    "debt_to_gdp_pct": 123,
 
-"EU": {
-"inflation_pct": 2.8,
-"gdp_growth_pct": 1.0,
-"defense_spend_usd_bn": 295,
-"overseas_bases_count": 30,
-"energy_net_exporter": 0,
-"oil_production_mbd": 0.3,
-"rd_gdp_pct": 2.3,
-"semiconductor_import_dependence": 0.55,
-"sanctions_intensity_index": 0.2,
-"industrial_output_index": 98
-},
+    "population_total_million": 334,
+    "working_age_population_pct": 65,
+    "median_age": 38,
+    "population_growth_pct": 0.5,
+    "urbanization_pct": 83,
 
-"China": {
-"inflation_pct": 0.7,
-"gdp_growth_pct": 4.8,
-"defense_spend_usd_bn": 296,
-"overseas_bases_count": 5,
-"energy_net_exporter": 0,
-"oil_production_mbd": 4.2,
-"rd_gdp_pct": 2.6,
-"semiconductor_import_dependence": 0.30,
-"sanctions_intensity_index": 0.35,
-"industrial_output_index": 106
-},
+    "defense_spend_usd_bn": 880,
+    "active_military_personnel": 1300000,
+    "overseas_bases_count": 750,
+    "aircraft_carriers": 11,
+    "nuclear_warheads": 5244,
+    "advanced_military_tech_index": 0.95,
 
-"India": {
-"inflation_pct": 5.3,
-"gdp_growth_pct": 6.5,
-"defense_spend_usd_bn": 83,
-"overseas_bases_count": 1,
-"energy_net_exporter": 0,
-"oil_production_mbd": 0.9,
-"rd_gdp_pct": 0.7,
-"semiconductor_import_dependence": 0.80,
-"sanctions_intensity_index": 0.2,
-"industrial_output_index": 110
-},
+    "rd_gdp_pct": 3.5,
+    "patents_per_year": 300000,
+    "high_tech_exports_pct": 18,
+    "semiconductor_production_share": 0.12,
+    "ai_research_output_index": 0.9,
 
-"Brazil": {
-"inflation_pct": 4.6,
-"gdp_growth_pct": 1.9,
-"defense_spend_usd_bn": 22,
-"overseas_bases_count": 0,
-"energy_net_exporter": 1,
-"oil_production_mbd": 3.5,
-"rd_gdp_pct": 1.3,
-"semiconductor_import_dependence": 0.70,
-"sanctions_intensity_index": 0.1,
-"industrial_output_index": 97
-},
+    "oil_production_mbd": 13.2,
+    "gas_production_bcm": 1030,
+    "energy_net_exporter": 1,
+    "renewable_capacity_gw": 350,
+    "critical_minerals_index": 0.6,
 
-"Russia": {
-"inflation_pct": 7.8,
-"gdp_growth_pct": 1.2,
-"defense_spend_usd_bn": 109,
-"overseas_bases_count": 20,
-"energy_net_exporter": 1,
-"oil_production_mbd": 10.4,
-"rd_gdp_pct": 1.1,
-"semiconductor_import_dependence": 0.90,
-"sanctions_intensity_index": 0.95,
-"industrial_output_index": 101
-},
+    "diplomatic_missions_abroad": 270,
+    "foreign_aid_usd_bn": 60,
+    "sanctions_intensity_index": 0.9,
+    "global_cultural_influence_index": 0.95,
 
-"UAE": {
-"inflation_pct": 2.1,
-"gdp_growth_pct": 3.7,
-"defense_spend_usd_bn": 26,
-"overseas_bases_count": 3,
-"energy_net_exporter": 1,
-"oil_production_mbd": 3.9,
-"rd_gdp_pct": 1.4,
-"semiconductor_import_dependence": 0.50,
-"sanctions_intensity_index": 0.1,
-"industrial_output_index": 104
-}
+    "port_throughput_index": 0.8
+  },
+
+  "EU": {
+    "gdp_nominal_usd_trillion": 18.5,
+    "gdp_growth_pct": 0.9,
+    "gdp_per_capita_ppp": 55000,
+    "inflation_pct": 2.7,
+    "industrial_output_index": 101,
+    "manufacturing_gdp_pct": 16,
+    "trade_volume_usd_trillion": 6.5,
+    "foreign_exchange_reserves_usd_bn": 900,
+    "debt_to_gdp_pct": 90,
+
+    "population_total_million": 448,
+    "working_age_population_pct": 64,
+    "median_age": 44,
+    "population_growth_pct": 0.1,
+    "urbanization_pct": 75,
+
+    "defense_spend_usd_bn": 300,
+    "active_military_personnel": 1600000,
+    "overseas_bases_count": 30,
+    "aircraft_carriers": 4,
+    "nuclear_warheads": 290,
+    "advanced_military_tech_index": 0.85,
+
+    "rd_gdp_pct": 2.2,
+    "patents_per_year": 180000,
+    "high_tech_exports_pct": 16,
+    "semiconductor_production_share": 0.08,
+    "ai_research_output_index": 0.7,
+
+    "oil_production_mbd": 0.2,
+    "gas_production_bcm": 60,
+    "energy_net_exporter": 0,
+    "renewable_capacity_gw": 420,
+    "critical_minerals_index": 0.3,
+
+    "diplomatic_missions_abroad": 250,
+    "foreign_aid_usd_bn": 75,
+    "sanctions_intensity_index": 0.8,
+    "global_cultural_influence_index": 0.9,
+
+    "port_throughput_index": 0.9
+  },
+
+  "China": {
+    "gdp_nominal_usd_trillion": 17.7,
+    "gdp_growth_pct": 5.0,
+    "gdp_per_capita_ppp": 23000,
+    "inflation_pct": 0.6,
+    "industrial_output_index": 110,
+    "manufacturing_gdp_pct": 27,
+    "trade_volume_usd_trillion": 6.3,
+    "foreign_exchange_reserves_usd_bn": 3200,
+    "debt_to_gdp_pct": 77,
+
+    "population_total_million": 1410,
+    "working_age_population_pct": 68,
+    "median_age": 39,
+    "population_growth_pct": -0.1,
+    "urbanization_pct": 65,
+
+    "defense_spend_usd_bn": 300,
+    "active_military_personnel": 2000000,
+    "overseas_bases_count": 3,
+    "aircraft_carriers": 3,
+    "nuclear_warheads": 410,
+    "advanced_military_tech_index": 0.85,
+
+    "rd_gdp_pct": 2.4,
+    "patents_per_year": 1500000,
+    "high_tech_exports_pct": 30,
+    "semiconductor_production_share": 0.15,
+    "ai_research_output_index": 0.85,
+
+    "oil_production_mbd": 4.2,
+    "gas_production_bcm": 230,
+    "energy_net_exporter": 0,
+    "renewable_capacity_gw": 1200,
+    "critical_minerals_index": 0.95,
+
+    "diplomatic_missions_abroad": 275,
+    "foreign_aid_usd_bn": 7,
+    "sanctions_intensity_index": 0.2,
+    "global_cultural_influence_index": 0.7,
+
+    "port_throughput_index": 1.0
+  },
+
+  "India": {
+    "gdp_nominal_usd_trillion": 3.7,
+    "gdp_growth_pct": 6.5,
+    "gdp_per_capita_ppp": 9000,
+    "inflation_pct": 5.4,
+    "industrial_output_index": 106,
+    "manufacturing_gdp_pct": 17,
+    "trade_volume_usd_trillion": 1.6,
+    "foreign_exchange_reserves_usd_bn": 600,
+    "debt_to_gdp_pct": 82,
+
+    "population_total_million": 1430,
+    "working_age_population_pct": 67,
+    "median_age": 28,
+    "population_growth_pct": 0.8,
+    "urbanization_pct": 36,
+
+    "defense_spend_usd_bn": 81,
+    "active_military_personnel": 1450000,
+    "overseas_bases_count": 2,
+    "aircraft_carriers": 2,
+    "nuclear_warheads": 170,
+    "advanced_military_tech_index": 0.65,
+
+    "rd_gdp_pct": 0.7,
+    "patents_per_year": 70000,
+    "high_tech_exports_pct": 10,
+    "semiconductor_production_share": 0.01,
+    "ai_research_output_index": 0.55,
+
+    "oil_production_mbd": 0.7,
+    "gas_production_bcm": 35,
+    "energy_net_exporter": 0,
+    "renewable_capacity_gw": 180,
+    "critical_minerals_index": 0.4,
+
+    "diplomatic_missions_abroad": 200,
+    "foreign_aid_usd_bn": 2,
+    "sanctions_intensity_index": 0.1,
+    "global_cultural_influence_index": 0.65,
+
+    "port_throughput_index": 0.6
+  },
+
+  "Russia": {
+    "gdp_nominal_usd_trillion": 2.2,
+    "gdp_growth_pct": 1.5,
+    "gdp_per_capita_ppp": 36000,
+    "inflation_pct": 6.0,
+    "industrial_output_index": 103,
+    "manufacturing_gdp_pct": 13,
+    "trade_volume_usd_trillion": 0.9,
+    "foreign_exchange_reserves_usd_bn": 580,
+    "debt_to_gdp_pct": 18,
+
+    "population_total_million": 144,
+    "working_age_population_pct": 66,
+    "median_age": 40,
+    "population_growth_pct": -0.3,
+    "urbanization_pct": 75,
+
+    "defense_spend_usd_bn": 110,
+    "active_military_personnel": 1150000,
+    "overseas_bases_count": 20,
+    "aircraft_carriers": 1,
+    "nuclear_warheads": 5889,
+    "advanced_military_tech_index": 0.75,
+
+    "rd_gdp_pct": 1.1,
+    "patents_per_year": 35000,
+    "high_tech_exports_pct": 8,
+    "semiconductor_production_share": 0.01,
+    "ai_research_output_index": 0.45,
+
+    "oil_production_mbd": 10.1,
+    "gas_production_bcm": 640,
+    "energy_net_exporter": 1,
+    "renewable_capacity_gw": 60,
+    "critical_minerals_index": 0.8,
+
+    "diplomatic_missions_abroad": 240,
+    "foreign_aid_usd_bn": 1,
+    "sanctions_intensity_index": 0.95,
+    "global_cultural_influence_index": 0.6,
+
+    "port_throughput_index": 0.7
+  },
+
+  "Brazil": {
+    "gdp_nominal_usd_trillion": 2.1,
+    "gdp_growth_pct": 2.9,
+    "gdp_per_capita_ppp": 18000,
+    "inflation_pct": 4.6,
+    "industrial_output_index": 101,
+    "manufacturing_gdp_pct": 11,
+    "trade_volume_usd_trillion": 0.7,
+    "foreign_exchange_reserves_usd_bn": 350,
+    "debt_to_gdp_pct": 74,
+
+    "population_total_million": 215,
+    "working_age_population_pct": 68,
+    "median_age": 34,
+    "population_growth_pct": 0.5,
+    "urbanization_pct": 87,
+
+    "defense_spend_usd_bn": 22,
+    "active_military_personnel": 360000,
+    "overseas_bases_count": 0,
+    "aircraft_carriers": 0,
+    "nuclear_warheads": 0,
+    "advanced_military_tech_index": 0.45,
+
+    "rd_gdp_pct": 1.2,
+    "patents_per_year": 25000,
+    "high_tech_exports_pct": 8,
+    "semiconductor_production_share": 0.01,
+    "ai_research_output_index": 0.4,
+
+    "oil_production_mbd": 3.7,
+    "gas_production_bcm": 45,
+    "energy_net_exporter": 1,
+    "renewable_capacity_gw": 190,
+    "critical_minerals_index": 0.5,
+
+    "diplomatic_missions_abroad": 180,
+    "foreign_aid_usd_bn": 0.3,
+    "sanctions_intensity_index": 0.05,
+    "global_cultural_influence_index": 0.6,
+
+    "port_throughput_index": 0.65
+  },
+
+  "UAE": {
+    "gdp_nominal_usd_trillion": 0.5,
+    "gdp_growth_pct": 3.5,
+    "gdp_per_capita_ppp": 74000,
+    "inflation_pct": 2.3,
+    "industrial_output_index": 105,
+    "manufacturing_gdp_pct": 9,
+    "trade_volume_usd_trillion": 0.9,
+    "foreign_exchange_reserves_usd_bn": 120,
+    "debt_to_gdp_pct": 31,
+
+    "population_total_million": 10,
+    "working_age_population_pct": 78,
+    "median_age": 33,
+    "population_growth_pct": 1.2,
+    "urbanization_pct": 87,
+
+    "defense_spend_usd_bn": 23,
+    "active_military_personnel": 63000,
+    "overseas_bases_count": 2,
+    "aircraft_carriers": 0,
+    "nuclear_warheads": 0,
+    "advanced_military_tech_index": 0.6,
+
+    "rd_gdp_pct": 1.3,
+    "patents_per_year": 4000,
+    "high_tech_exports_pct": 6,
+    "semiconductor_production_share": 0,
+    "ai_research_output_index": 0.45,
+
+    "oil_production_mbd": 4.0,
+    "gas_production_bcm": 60,
+    "energy_net_exporter": 1,
+    "renewable_capacity_gw": 6,
+    "critical_minerals_index": 0.2,
+
+    "diplomatic_missions_abroad": 110,
+    "foreign_aid_usd_bn": 4,
+    "sanctions_intensity_index": 0.15,
+    "global_cultural_influence_index": 0.55,
+
+    "port_throughput_index": 0.85
+  }
 }
