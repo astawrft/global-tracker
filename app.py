@@ -180,6 +180,7 @@ GOOD_WHEN_HIGHER = {
     "energy_net_exporter",
     "oil_production_mbd",
     "rd_gdp_pct",
+    "industrial_output_index",
 }
 BAD_WHEN_HIGHER = {
     "inflation_pct",
@@ -202,6 +203,7 @@ default_weights = {
     "inflation_pct": 1.0,
     "semiconductor_import_dependence": 1.5,
     "sanctions_intensity_index": 2.0,
+    "industrial_output_index": 1.4,
 }
 
 weights = {}
