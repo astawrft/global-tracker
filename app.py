@@ -299,6 +299,17 @@ else:
     if scale_to_100:
         df["Score"] = df["Score"] * 100
 
+# ---------- Ranking table ----------
+df_rank = df[["Country", "Score"]].copy()
+df_rank = df_rank.sort_values("Score", ascending=False, na_position="last").reset_index(drop=True)
+df_rank.insert(0, "Rank", range(1, len(df_rank) + 1))
+
+if "Score" not in df.columns:
+    st.error("Score was not computed. Check the Scoring block and config.json.")
+    console_log("error: Score missing -> df_rank cannot be built")
+    render_console()
+    st.stop()
+    
 # ---------- Output ----------
 col1, col2, col3 = st.columns(3)
 col1.metric("Countries", len(df_rank))
