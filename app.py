@@ -172,76 +172,124 @@ for c in df.columns:
     if c != "Country":
         df[c] = pd.to_numeric(df[c], errors="coerce")
 
-# ---------- Scoring ----------
-GOOD_WHEN_HIGHER = {
-    "gdp_growth_pct",
-    "defense_spend_usd_bn",
-    "overseas_bases_count",
-    "energy_net_exporter",
-    "oil_production_mbd",
-    "rd_gdp_pct",
-    "industrial_output_index",
-}
-BAD_WHEN_HIGHER = {
-    "inflation_pct",
-    "semiconductor_import_dependence",
-    "sanctions_intensity_index",
-}
+# ---------- Scoring (CONFIG-DRIVEN, MAX-NORM) ----------
+st.sidebar.header("🧮 Influence score weights (from config.json)")
 
-available_good = [m for m in GOOD_WHEN_HIGHER if m in df.columns]
-available_bad = [m for m in BAD_WHEN_HIGHER if m in df.columns]
-all_metrics = available_good + available_bad
+# Load config
+try:
+    with open("config.json", "r", encoding="utf-8") as f:
+        cfg = json.load(f)
+    cfg_metrics = cfg.get("metrics", [])
+    scoring_cfg = cfg.get("scoring", {})
+    console_log(f"config: loaded {len(cfg_metrics)} metrics")
+except Exception as e:
+    st.error(f"Could not load config.json: {e}")
+    console_log(f"error: config load failed ({e})")
+    render_console()
+    st.stop()
 
-st.sidebar.header("🧮 Influence score weights")
-default_weights = {
-    "gdp_growth_pct": 1.0,
-    "defense_spend_usd_bn": 2.0,
-    "overseas_bases_count": 2.0,
-    "energy_net_exporter": 1.0,
-    "oil_production_mbd": 1.0,
-    "rd_gdp_pct": 1.5,
-    "inflation_pct": 1.0,
-    "semiconductor_import_dependence": 1.5,
-    "sanctions_intensity_index": 2.0,
-    "industrial_output_index": 1.4,
-}
+# Only support modes used in your new system
+SUPPORTED_MODES = {"max_norm", "threshold"}
 
+# Build metric config list (filter to keys that exist in df)
+metric_rows = []
+for m in cfg_metrics:
+    key = m.get("key")
+    if not key or key not in df.columns:
+        continue
+    mode = m.get("mode", "max_norm")
+    if mode not in SUPPORTED_MODES:
+        continue
+    metric_rows.append(m)
+
+if not metric_rows:
+    st.warning("No metrics from config.json match the columns in your data file.")
+    console_log("warning: no matching metrics in config")
+    render_console()
+    st.stop()
+
+# Let user adjust weights (default to config weights)
 weights = {}
-for m in all_metrics:
-    weights[m] = st.sidebar.slider(
-        m,
+for m in metric_rows:
+    key = m["key"]
+    default_w = float(m.get("weight", 1.0))
+    weights[key] = st.sidebar.slider(
+        key,
         min_value=0.0,
         max_value=3.0,
-        value=float(default_weights.get(m, 1.0)),
+        value=float(default_w),
         step=0.1,
+        help=m.get("name", key),
     )
 
 st.sidebar.markdown("---")
 scale_to_100 = st.sidebar.checkbox("Scale score to 0–100", value=True)
 
-def minmax_norm(series: pd.Series) -> pd.Series:
+clamp_0_1 = bool(scoring_cfg.get("clamp_0_1", True))
+
+def clamp01(x: float) -> float:
+    return max(0.0, min(1.0, x))
+
+def max_norm(series: pd.Series) -> pd.Series:
     s = series.astype(float)
-    mn, mx = s.min(skipna=True), s.max(skipna=True)
-    if pd.isna(mn) or pd.isna(mx) or mn == mx:
-        return pd.Series([0.5] * len(s), index=s.index)
-    return (s - mn) / (mx - mn)
+    mx = s.max(skipna=True)
+    if pd.isna(mx) or mx == 0:
+        return pd.Series([0.0] * len(s), index=s.index)
+    return s / mx
 
-console_log("compute: normalizing metrics")
-norm = pd.DataFrame()
-norm["Country"] = df["Country"]
+def threshold_apply(series: pd.Series, thresholds: list) -> pd.Series:
+    # thresholds like [{"max": 0, "points": 0}, {"max": 1, "points": 4}]
+    # returns points (NOT normalized) so we will later divide by max_points to put into 0..1
+    def pts(v):
+        if pd.isna(v):
+            return 0.0
+        for t in thresholds:
+            if float(v) <= float(t["max"]):
+                return float(t["points"])
+        return float(thresholds[-1]["points"]) if thresholds else 0.0
+    return series.apply(pts)
 
-for m in available_good:
-    norm[m] = minmax_norm(df[m])
+console_log("compute: max-normalizing metrics from config")
+norm = pd.DataFrame(index=df.index)
 
-for m in available_bad:
-    norm[m] = 1.0 - minmax_norm(df[m])
+for m in metric_rows:
+    key = m["key"]
+    mode = m.get("mode", "max_norm")
+    direction = m.get("direction", "higher_better")
+    max_points = float(m.get("max_points", 1.0))  # used for max_norm; also to normalize threshold to 0..1
 
-console_log("compute: scoring")
+    if mode == "max_norm":
+        n = max_norm(df[key])
+        if direction == "lower_better":
+            n = 1.0 - n
+        if clamp_0_1:
+            n = n.apply(lambda x: clamp01(float(x)) if pd.notna(x) else 0.0)
+        norm[key] = n
+
+    elif mode == "threshold":
+        thresholds = m.get("thresholds", [])
+        pts = threshold_apply(df[key], thresholds)
+
+        # Convert threshold points -> normalized 0..1 using max_points if provided
+        # If no max_points in config, fall back to max points found in thresholds.
+        if "max_points" in m:
+            denom = float(m["max_points"]) if float(m["max_points"]) > 0 else 1.0
+        else:
+            denom = max([float(t.get("points", 0)) for t in thresholds], default=1.0)
+            denom = denom if denom > 0 else 1.0
+
+        n = pts / denom
+        if clamp_0_1:
+            n = n.apply(lambda x: clamp01(float(x)) if pd.notna(x) else 0.0)
+        norm[key] = n
+
+console_log("compute: scoring (weighted mean)")
 score = pd.Series(0.0, index=df.index)
 total_w = 0.0
-for m, w in weights.items():
-    if m in norm.columns and w > 0:
-        score += norm[m] * w
+
+for key, w in weights.items():
+    if key in norm.columns and w > 0:
+        score += norm[key] * w
         total_w += w
 
 if total_w == 0:
@@ -250,10 +298,6 @@ else:
     df["Score"] = score / total_w
     if scale_to_100:
         df["Score"] = df["Score"] * 100
-
-df_rank = df[["Country", "Score"]].copy()
-df_rank = df_rank.sort_values("Score", ascending=False, na_position="last").reset_index(drop=True)
-df_rank.insert(0, "Rank", range(1, len(df_rank) + 1))
 
 # ---------- Output ----------
 col1, col2, col3 = st.columns(3)
