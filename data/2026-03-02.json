@@ -1,79 +1,92 @@
 {
-  "USA": {
-    "inflation_pct": 3.1,
-    "gdp_growth_pct": 2.1,
-    "defense_spend_usd_bn": 997,
-    "overseas_bases_count": 750,
-    "energy_net_exporter": 1,
-    "oil_production_mbd": 13.4,
-    "rd_gdp_pct": 3.5,
-    "semiconductor_import_dependence": 0.35,
-    "sanctions_intensity_index": 0.15
-  },
-  "EU": {
-    "inflation_pct": 2.2,
-    "gdp_growth_pct": 1.6,
-    "defense_spend_usd_bn": 420,
-    "overseas_bases_count": 25,
-    "energy_net_exporter": 0,
-    "oil_production_mbd": 0.12,
-    "rd_gdp_pct": 2.3,
-    "semiconductor_import_dependence": 0.65,
-    "sanctions_intensity_index": 0.25
-  },
-  "Brazil": {
-    "inflation_pct": 4.1,
-    "gdp_growth_pct": 2.0,
-    "defense_spend_usd_bn": 23,
-    "overseas_bases_count": 0,
-    "energy_net_exporter": 1,
-    "oil_production_mbd": 3.95,
-    "rd_gdp_pct": 1.2,
-    "semiconductor_import_dependence": 0.75,
-    "sanctions_intensity_index": 0.1
-  },
-  "Russia": {
-    "inflation_pct": 7.5,
-    "gdp_growth_pct": 1.2,
-    "defense_spend_usd_bn": 149,
-    "overseas_bases_count": 20,
-    "energy_net_exporter": 1,
-    "oil_production_mbd": 9.2,
-    "rd_gdp_pct": 1.1,
-    "semiconductor_import_dependence": 0.9,
-    "sanctions_intensity_index": 0.9
-  },
-  "India": {
-    "inflation_pct": 4.8,
-    "gdp_growth_pct": 6.2,
-    "defense_spend_usd_bn": 86,
-    "overseas_bases_count": 1,
-    "energy_net_exporter": 0,
-    "oil_production_mbd": 0.75,
-    "rd_gdp_pct": 0.7,
-    "semiconductor_import_dependence": 0.85,
-    "sanctions_intensity_index": 0.2
-  },
-  "China": {
-    "inflation_pct": 1.2,
-    "gdp_growth_pct": 4.5,
-    "defense_spend_usd_bn": 314,
-    "overseas_bases_count": 5,
-    "energy_net_exporter": 0,
-    "oil_production_mbd": 4.2,
-    "rd_gdp_pct": 2.6,
-    "semiconductor_import_dependence": 0.45,
-    "sanctions_intensity_index": 0.45
-  },
-  "UAE": {
-    "inflation_pct": 2.0,
-    "gdp_growth_pct": 4.5,
-    "defense_spend_usd_bn": 22,
-    "overseas_bases_count": 3,
-    "energy_net_exporter": 1,
-    "oil_production_mbd": 2.94,
-    "rd_gdp_pct": 1.4,
-    "semiconductor_import_dependence": 0.6,
-    "sanctions_intensity_index": 0.1
-  }
+"USA": {
+"inflation_pct": 3.1,
+"gdp_growth_pct": 2.4,
+"defense_spend_usd_bn": 886,
+"overseas_bases_count": 750,
+"energy_net_exporter": 1,
+"oil_production_mbd": 13.3,
+"rd_gdp_pct": 3.6,
+"semiconductor_import_dependence": 0.35,
+"sanctions_intensity_index": 0.15,
+"industrial_output_index": 102
+},
+
+"EU": {
+"inflation_pct": 2.8,
+"gdp_growth_pct": 1.0,
+"defense_spend_usd_bn": 295,
+"overseas_bases_count": 30,
+"energy_net_exporter": 0,
+"oil_production_mbd": 0.3,
+"rd_gdp_pct": 2.3,
+"semiconductor_import_dependence": 0.55,
+"sanctions_intensity_index": 0.2,
+"industrial_output_index": 98
+},
+
+"China": {
+"inflation_pct": 0.7,
+"gdp_growth_pct": 4.8,
+"defense_spend_usd_bn": 296,
+"overseas_bases_count": 5,
+"energy_net_exporter": 0,
+"oil_production_mbd": 4.2,
+"rd_gdp_pct": 2.6,
+"semiconductor_import_dependence": 0.30,
+"sanctions_intensity_index": 0.35,
+"industrial_output_index": 106
+},
+
+"India": {
+"inflation_pct": 5.3,
+"gdp_growth_pct": 6.5,
+"defense_spend_usd_bn": 83,
+"overseas_bases_count": 1,
+"energy_net_exporter": 0,
+"oil_production_mbd": 0.9,
+"rd_gdp_pct": 0.7,
+"semiconductor_import_dependence": 0.80,
+"sanctions_intensity_index": 0.2,
+"industrial_output_index": 110
+},
+
+"Brazil": {
+"inflation_pct": 4.6,
+"gdp_growth_pct": 1.9,
+"defense_spend_usd_bn": 22,
+"overseas_bases_count": 0,
+"energy_net_exporter": 1,
+"oil_production_mbd": 3.5,
+"rd_gdp_pct": 1.3,
+"semiconductor_import_dependence": 0.70,
+"sanctions_intensity_index": 0.1,
+"industrial_output_index": 97
+},
+
+"Russia": {
+"inflation_pct": 7.8,
+"gdp_growth_pct": 1.2,
+"defense_spend_usd_bn": 109,
+"overseas_bases_count": 20,
+"energy_net_exporter": 1,
+"oil_production_mbd": 10.4,
+"rd_gdp_pct": 1.1,
+"semiconductor_import_dependence": 0.90,
+"sanctions_intensity_index": 0.95,
+"industrial_output_index": 101
+},
+
+"UAE": {
+"inflation_pct": 2.1,
+"gdp_growth_pct": 3.7,
+"defense_spend_usd_bn": 26,
+"overseas_bases_count": 3,
+"energy_net_exporter": 1,
+"oil_production_mbd": 3.9,
+"rd_gdp_pct": 1.4,
+"semiconductor_import_dependence": 0.50,
+"sanctions_intensity_index": 0.1,
+"industrial_output_index": 104
+}
 }
